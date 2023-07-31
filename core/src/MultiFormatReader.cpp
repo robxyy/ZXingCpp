@@ -9,11 +9,11 @@
 #include "BarcodeFormat.h"
 #include "BinaryBitmap.h"
 #include "DecodeHints.h"
-#include "aztec/AZReader.h"
-#include "datamatrix/DMReader.h"
-#include "maxicode/MCReader.h"
-#include "oned/ODReader.h"
-#include "pdf417/PDFReader.h"
+//#include "aztec/AZReader.h"
+//#include "datamatrix/DMReader.h"
+//#include "maxicode/MCReader.h"
+//#include "oned/ODReader.h"
+//#include "pdf417/PDFReader.h"
 #include "qrcode/QRReader.h"
 
 #include <memory>
@@ -25,23 +25,23 @@ MultiFormatReader::MultiFormatReader(const DecodeHints& hints) : _hints(hints)
 	auto formats = hints.formats().empty() ? BarcodeFormat::Any : hints.formats();
 
 	// Put linear readers upfront in "normal" mode
-	if (formats.testFlags(BarcodeFormat::LinearCodes) && !hints.tryHarder())
-		_readers.emplace_back(new OneD::Reader(hints));
+//	if (formats.testFlags(BarcodeFormat::LinearCodes) && !hints.tryHarder())
+//		_readers.emplace_back(new OneD::Reader(hints));
 
 	if (formats.testFlags(BarcodeFormat::QRCode | BarcodeFormat::MicroQRCode))
 		_readers.emplace_back(new QRCode::Reader(hints, true));
-	if (formats.testFlag(BarcodeFormat::DataMatrix))
-		_readers.emplace_back(new DataMatrix::Reader(hints, true));
-	if (formats.testFlag(BarcodeFormat::Aztec))
-		_readers.emplace_back(new Aztec::Reader(hints, true));
-	if (formats.testFlag(BarcodeFormat::PDF417))
-		_readers.emplace_back(new Pdf417::Reader(hints));
-	if (formats.testFlag(BarcodeFormat::MaxiCode))
-		_readers.emplace_back(new MaxiCode::Reader(hints));
+//	if (formats.testFlag(BarcodeFormat::DataMatrix))
+//		_readers.emplace_back(new DataMatrix::Reader(hints, true));
+//	if (formats.testFlag(BarcodeFormat::Aztec))
+//		_readers.emplace_back(new Aztec::Reader(hints, true));
+//	if (formats.testFlag(BarcodeFormat::PDF417))
+//		_readers.emplace_back(new Pdf417::Reader(hints));
+//	if (formats.testFlag(BarcodeFormat::MaxiCode))
+//		_readers.emplace_back(new MaxiCode::Reader(hints));
 
 	// At end in "try harder" mode
-	if (formats.testFlags(BarcodeFormat::LinearCodes) && hints.tryHarder())
-		_readers.emplace_back(new OneD::Reader(hints));
+//	if (formats.testFlags(BarcodeFormat::LinearCodes) && hints.tryHarder())
+//		_readers.emplace_back(new OneD::Reader(hints));
 }
 
 MultiFormatReader::~MultiFormatReader() = default;
